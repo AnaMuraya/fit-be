@@ -7,9 +7,9 @@ const Role = db.role;
 verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
   if (!token) {
-    return res.status(403).send({ message: "No token provided" });
+    return res.status(403).send({ message: "No tokens provided" });
   }
-  jwt.verify(token, config.secret, (err, decoded) => {
+  jwt.verify(token, process.env.SECRET, (err, decoded) => {
     err && res.status(401).send({ message: "Unauthorized" });
     req.userId = decoded.id;
     next();
@@ -32,7 +32,7 @@ isAdmin = (req, res, next) => {
           return;
         }
         for (let i = 0; i < roles.length; i++) {
-          if (role[i].name === "admin") {
+          if (roles[i].name === "admin") {
             next();
             return;
           }
