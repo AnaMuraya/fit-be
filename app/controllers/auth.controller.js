@@ -71,7 +71,7 @@ exports.signin = (req, res) => {
           .status(401)
           .send({ accessToken: null, message: "Invalid password" });
       }
-      let token = jwt.sign({ id: user.id }, config.secret, {
+      let token = jwt.sign({ id: user.id }, process.env.SECRET, {
         expiresIn: 3600, //one hour
       });
       let authorities = [];
@@ -82,7 +82,7 @@ exports.signin = (req, res) => {
         id: user._id,
         username: user.username,
         email: user.email,
-        roles: user.authorities,
+        roles: authorities,
         accessToken: token,
       });
     });

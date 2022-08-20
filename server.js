@@ -1,5 +1,8 @@
 const express = require("express");
 const cors = require("cors");
+require('dotenv').config()
+
+console.log(process.env)
 
 const app = express();
 const corsOptions = {
@@ -16,10 +19,13 @@ const Role = db.role;
 
 //open mongoose connection to MongoDB
 db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASS}@cluster0.0zvdjoh.mongodb.net/${process.env.DB_NAME}`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log(`Successfully connected to MongoDB`);
     initial();
