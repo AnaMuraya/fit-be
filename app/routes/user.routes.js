@@ -4,7 +4,7 @@ module.exports = userRoutes = (app) => {
   app.use((req, res, next) => {
     res.header(
       "Access-Control-Allow-Headers",
-      "x-access-token, Origin, Content-Type, Accept"
+      "x-access-token, Origin, X-Requested-With, Content-Type, Accept"
     );
     next();
   });
